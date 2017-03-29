@@ -108,6 +108,7 @@ public class MainGameLoop {
         Camera camera = new Camera();
          
         while(!Display.isCloseRequested()){
+        	//Main loop
             entity.increaseRotation(1, 1, 0);
             camera.move();
             renderer.prepare();
