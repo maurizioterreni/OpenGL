@@ -3,8 +3,10 @@ package com.unifi.ing.engine;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
+
 import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Entity;
+import com.unifi.ing.engine.entity.Light;
 import com.unifi.ing.engine.shader.StaticShader;
 import com.unifi.ing.engine.texture.ModelTexture;
 import com.unifi.ing.engine.utils.DisplayManager;
@@ -26,6 +28,7 @@ public class MainGameLoop {
         TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("stallTexture")));
          
         Entity entity = new Entity(staticModel, new Vector3f(0,-2,-30),0,0,0,1);
+        Light light = new Light(new Vector3f(0, 0, -20), new Vector3f(1, 1, 1));
          
         Camera camera = new Camera();
          
@@ -35,6 +38,7 @@ public class MainGameLoop {
             camera.move();
             renderer.prepare();
             shader.start();
+            shader.loadLight(light);
             shader.loadViewMatrix(camera);
             renderer.render(entity,shader);
             shader.stop();
