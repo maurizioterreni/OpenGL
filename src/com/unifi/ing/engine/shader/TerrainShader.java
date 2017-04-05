@@ -7,10 +7,12 @@ import com.unifi.ing.engine.entity.Light;
 import com.unifi.ing.engine.utils.Maths;
 
 
-public class StaticShader extends ShaderProgram{
+
+public class TerrainShader extends ShaderProgram{
 	
-	private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/vertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/fragmentShader.txt";
+	
+	private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/terrainVertexShader.txt";
+	private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/terrainFragmentShader.txt";
 	
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
@@ -20,7 +22,7 @@ public class StaticShader extends ShaderProgram{
 	private int location_shineDamper;
 	private int location_reflectivity;
 
-	public StaticShader() {
+	public TerrainShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
 	}
 
@@ -65,7 +67,6 @@ public class StaticShader extends ShaderProgram{
 	public void loadProjectionMatrix(Matrix4f projection){
 		super.loadMatrix(location_projectionMatrix, projection);
 	}
-	
 	
 
 }

@@ -1,13 +1,16 @@
 package com.unifi.ing.engine;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
-
 
 import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Entity;
 import com.unifi.ing.engine.entity.Light;
-import com.unifi.ing.engine.shader.StaticShader;
+import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.texture.ModelTexture;
 import com.unifi.ing.engine.utils.DisplayManager;
 
@@ -17,38 +20,41 @@ import model.TexturedModel;
 public class MainGameLoop {
 	public static void main(String[] args) {
 		DisplayManager.createDisplay();
-		Loader loader = new Loader();
-
-		StaticShader shader = new StaticShader();
-		Renderer renderer = new Renderer(shader);
-		
-		
-        RawModel model = OBJLoader.loadObjModel("stall", loader);
+        Loader loader = new Loader();
          
-        TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("stallTexture")));
-        ModelTexture texture = staticModel.getTexture();
-        texture.setShineDamper(10);
-        texture.setReflectivity(1);
+         
+        RawModel model = OBJLoader.loadObjModel("rock", loader);
+         
+        TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("rock")));
+        List<Entity> entities = new ArrayList<Entity>();
+        Random random = new Random();
+        for(int i=0;i<1000;i++){
+            entities.add(new Entity(staticModel, new Vector3f(random.nextFloat()*1600,0,random.nextFloat() * 800),0,0,0,1));
+        }
+         
+        Light light = new Light(new Vector3f(20000,20000,2000),new Vector3f(1,1,1));
+         
+        Terrain terrain = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("groundMartian")));
+        Terrain terrain2 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("groundMartian")));
+         
+        Camera camera = new Camera();   
+        MasterRenderer renderer = new MasterRenderer();
         
-        Entity entity = new Entity(staticModel, new Vector3f(0,-2,-30),0,0,0,1);
-        Light light = new Light(new Vector3f(0, 0, -20), new Vector3f(1, 1, 1));
-         
-        Camera camera = new Camera();
+        
          
         while(!Display.isCloseRequested()){
-        	//Main loop
-            entity.increaseRotation(0, 0.1f, 0);
             camera.move();
-            renderer.prepare();
-            shader.start();
-            shader.loadLight(light);
-            shader.loadViewMatrix(camera);
-            renderer.render(entity,shader);
-            shader.stop();
-            DisplayManager.updateDisplay();         
+             
+            renderer.processTerrain(terrain);
+            renderer.processTerrain(terrain2);
+            for(Entity entity:entities){
+                renderer.processEntity(entity);
+            }
+            renderer.render(light, camera);
+            DisplayManager.updateDisplay();
         }
  
-        shader.cleanUp();
+        renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
 	}
