@@ -92,7 +92,7 @@ public class OBJLoader {
 	private static void processVertex(String[] vertexData, List<Integer> indices, List<Vector2f> textures, List<Vector3f> normals, float[] textureArray, float[] normalsArray){
 		int currentVertexPointer = Integer.parseInt(vertexData[0]) -1;
 		indices.add(currentVertexPointer);
-		Vector2f currentText = textures .get(Integer.parseInt(vertexData[1]) - 1);
+		Vector2f currentText = textures.get(Integer.parseInt(vertexData[1]) - 1);
 		textureArray[currentVertexPointer*2] = currentText.x;
 		textureArray[currentVertexPointer*2+1] = 1 - currentText.y;
 		Vector3f currentNorm = normals.get(Integer.parseInt(vertexData[2]) -1);

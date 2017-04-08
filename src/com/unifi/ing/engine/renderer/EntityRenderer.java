@@ -1,4 +1,4 @@
-package com.unifi.ing.engine;
+package com.unifi.ing.engine.renderer;
 
 import java.util.List;
 import java.util.Map;
@@ -50,12 +50,20 @@ public class EntityRenderer {
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glEnableVertexAttribArray(2);
 		ModelTexture texture = model.getTexture();
+		
+		if(texture.isHasTransparency()){
+			MasterRenderer.disableCulling();
+		}
+		
+		shader.loadFakeLightingVariable(texture.isUseFakeLighting());
+		
 		shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getTextureID());
 	}
 
 	private void unbindTexturedModel() {
+		MasterRenderer.enableCulling();
 		GL20.glDisableVertexAttribArray(0);
 		GL20.glDisableVertexAttribArray(1);
 		GL20.glDisableVertexAttribArray(2);
