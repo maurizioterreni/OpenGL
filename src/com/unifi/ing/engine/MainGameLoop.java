@@ -13,6 +13,8 @@ import com.unifi.ing.engine.entity.Light;
 import com.unifi.ing.engine.renderer.MasterRenderer;
 import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.texture.ModelTexture;
+import com.unifi.ing.engine.texture.TerrainTexture;
+import com.unifi.ing.engine.texture.TerrainTexturePack;
 import com.unifi.ing.engine.utils.DisplayManager;
 
 import model.RawModel;
@@ -23,6 +25,14 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
         Loader loader = new Loader();
          
+        
+        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
+        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
+        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("grassFlowers"));
+        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
+        
+        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
         RawModel model = OBJLoader.loadObjModel("rock", loader);
          
@@ -45,8 +55,8 @@ public class MainGameLoop {
          
         Light light = new Light(new Vector3f(20000,20000,2000),new Vector3f(1,1,1));
          
-        Terrain terrain = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("mrtBk")));
-        Terrain terrain2 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("mrtBk")));
+        Terrain terrain = new Terrain(0,0,loader,texturePack,blendMap);
+        Terrain terrain2 = new Terrain(1,0,loader,texturePack,blendMap);
          
         Camera camera = new Camera();   
         MasterRenderer renderer = new MasterRenderer();
