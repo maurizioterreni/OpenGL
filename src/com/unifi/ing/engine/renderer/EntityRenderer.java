@@ -10,12 +10,11 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 
 import com.unifi.ing.engine.entity.Entity;
+import com.unifi.ing.engine.model.RawModel;
+import com.unifi.ing.engine.model.TexturedModel;
 import com.unifi.ing.engine.shader.StaticShader;
 import com.unifi.ing.engine.texture.ModelTexture;
 import com.unifi.ing.engine.utils.Maths;
-
-import model.RawModel;
-import model.TexturedModel;
 
 
 

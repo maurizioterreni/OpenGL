@@ -4,7 +4,7 @@ package com.unifi.ing.engine.entity;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import model.TexturedModel;
+import com.unifi.ing.engine.model.TexturedModel;
 
 public class Entity {
 

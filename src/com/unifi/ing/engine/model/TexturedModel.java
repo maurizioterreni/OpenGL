@@ -1,4 +1,4 @@
-package model;
+package com.unifi.ing.engine.model;
 
 import com.unifi.ing.engine.texture.ModelTexture;
 

@@ -1,4 +1,4 @@
-package model;
+package com.unifi.ing.engine.model;
 
 public class RawModel {
 

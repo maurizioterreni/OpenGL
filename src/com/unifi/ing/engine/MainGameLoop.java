@@ -10,15 +10,14 @@ import org.lwjgl.util.vector.Vector3f;
 import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Entity;
 import com.unifi.ing.engine.entity.Light;
+import com.unifi.ing.engine.model.RawModel;
+import com.unifi.ing.engine.model.TexturedModel;
 import com.unifi.ing.engine.renderer.MasterRenderer;
 import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.texture.ModelTexture;
 import com.unifi.ing.engine.texture.TerrainTexture;
 import com.unifi.ing.engine.texture.TerrainTexturePack;
 import com.unifi.ing.engine.utils.DisplayManager;
-
-import model.RawModel;
-import model.TexturedModel;
 
 public class MainGameLoop {
 	public static void main(String[] args) {

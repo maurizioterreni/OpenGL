@@ -12,11 +12,10 @@ import org.lwjgl.util.vector.Matrix4f;
 import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Entity;
 import com.unifi.ing.engine.entity.Light;
+import com.unifi.ing.engine.model.TexturedModel;
 import com.unifi.ing.engine.shader.StaticShader;
 import com.unifi.ing.engine.shader.TerrainShader;
 import com.unifi.ing.engine.terrains.Terrain;
-
-import model.TexturedModel;
 
 
 

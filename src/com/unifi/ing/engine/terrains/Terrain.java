@@ -1,10 +1,9 @@
 package com.unifi.ing.engine.terrains;
 
 import com.unifi.ing.engine.Loader;
+import com.unifi.ing.engine.model.RawModel;
 import com.unifi.ing.engine.texture.TerrainTexture;
 import com.unifi.ing.engine.texture.TerrainTexturePack;
-
-import model.RawModel;
 
 public class Terrain {
 	

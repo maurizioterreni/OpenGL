@@ -9,12 +9,11 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+import com.unifi.ing.engine.model.RawModel;
 import com.unifi.ing.engine.shader.TerrainShader;
 import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.texture.TerrainTexturePack;
 import com.unifi.ing.engine.utils.Maths;
-
-import model.RawModel;
 
 
 

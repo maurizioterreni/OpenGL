@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL30;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-import model.RawModel;
+import com.unifi.ing.engine.model.RawModel;
 
 
 public class Loader {
