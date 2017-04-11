@@ -33,6 +33,8 @@ public class MainGameLoop {
         
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+        
+        Terrain terrain = new Terrain(0,0,loader,texturePack,blendMap,"heightmap");
 
         RawModel model = OBJLoader.loadObjModel("rock", loader);
          
@@ -41,36 +43,37 @@ public class MainGameLoop {
         
         List<Entity> entities = new ArrayList<Entity>();
         Random random = new Random();
-        for(int i=0;i<1000;i++){
-            entities.add(new Entity(staticModel, new Vector3f(random.nextFloat()*1600,0,random.nextFloat() * 800),0,0,0,1));
-            entities.add(new Entity(staticModel,  new Vector3f(random.nextFloat()*1600,0,random.nextFloat() * 800),0,0,0, 0.7f));
-            
+        for(int i=0;i<400;i++){
+        	float x = random.nextFloat()*800;
+        	float z = random.nextFloat() * 800;	
+        	float y = terrain.getHeightOfTerrain(x, z) - 1;
+            entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
+            entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
             
         }
          
         Light light = new Light(new Vector3f(20000,20000,2000),new Vector3f(1,1,1));
          
-        Terrain terrain = new Terrain(0,0,loader,texturePack,blendMap);
-        Terrain terrain2 = new Terrain(1,0,loader,texturePack,blendMap);
+       
+
          
           
         MasterRenderer renderer = new MasterRenderer();
-        //10:01
         
-        RawModel bunnyModel = OBJLoader.loadObjModel("rover", loader);
+        RawModel roverModel = OBJLoader.loadObjModel("rover", loader);
         
-        TexturedModel bunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("roverTexture")));
+        TexturedModel roverTexturedModel = new TexturedModel(roverModel, new ModelTexture(loader.loadTexture("roverTexture")));
         
-        Rover rover = new Rover(bunny, new Vector3f(600, 30, 550), 0, 0, 0, 2);
+        Rover rover = new Rover(roverTexturedModel, new Vector3f(600, 30, 550), 0, 0, 0, 2);
         Camera camera = new Camera(rover); 
         while(!Display.isCloseRequested()){
             camera.move();
-            rover.move();
+            rover.move(terrain);
   
             renderer.processEntity(rover);
             renderer.processTerrain(terrain);
-            renderer.processTerrain(terrain2);
-        
+            
+            
             for(Entity entity:entities){
                 renderer.processEntity(entity);
             }
