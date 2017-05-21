@@ -1,11 +1,5 @@
 package com.unifi.ing.engine.terrains;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -17,9 +11,9 @@ import com.unifi.ing.engine.utils.Maths;
 
 public class Terrain {
 
-	private static final float SIZE = 800;
-	private static final float MAX_HEIGHT = 40;
-	private static final float MAX_PIXEL_COLOUR = 256 * 256 * 256;
+	private static final float SIZE = 2800;
+//	private static final float MAX_HEIGHT = 40;
+//	private static final float MAX_PIXEL_COLOUR = 256 * 256 * 256;
 
 	private float x;
 	private float z;
@@ -29,12 +23,20 @@ public class Terrain {
 
 	private float[][] heights;
 
-	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap, String heightMap){
+//	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap, String heightMap){
+//		this.texturePack = texturePack;
+//		this.blendMap = blendMap;
+//		this.x = gridX * SIZE;
+//		this.z = gridZ * SIZE;
+//		this.model = generateTerrain(loader,heightMap);
+//	}
+	
+	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap){
 		this.texturePack = texturePack;
 		this.blendMap = blendMap;
 		this.x = gridX * SIZE;
 		this.z = gridZ * SIZE;
-		this.model = generateTerrain(loader,heightMap);
+		this.model = generateTerrain(loader);
 	}
 
 	public float getX() {
@@ -87,17 +89,11 @@ public class Terrain {
 	}
 
 
-	private RawModel generateTerrain(Loader loader, String heightMap){
+	private RawModel generateTerrain(Loader loader){
 
 		HeightsGenerator generator = new HeightsGenerator();
 		
-		BufferedImage image = null;
-
-		try {
-			image = ImageIO.read(new File("res/" + heightMap + ".png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 
 		int VERTEX_COUNT = 128;
 		heights = new float[VERTEX_COUNT][VERTEX_COUNT];
