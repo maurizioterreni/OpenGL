@@ -1,14 +1,9 @@
 package com.unifi.ing.engine;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.unifi.ing.engine.entity.Camera;
-import com.unifi.ing.engine.entity.Entity;
 import com.unifi.ing.engine.entity.Light;
 import com.unifi.ing.engine.entity.Rover;
 import com.unifi.ing.engine.model.RawModel;
@@ -35,22 +30,23 @@ public class MainGameLoop {
 		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
 		Terrain terrain = new Terrain(0,0,loader,texturePack,blendMap,"heightmap");
+//		Terrain terrain = new Terrain(0,0,loader,texturePack, blendMap);
 
-		RawModel model = OBJLoader.loadObjModel("rock", loader);
+//		RawModel model = OBJLoader.loadObjModel("rock", loader);
 
-		TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("rock")));
+//		TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("rock")));
 
 
-		List<Entity> entities = new ArrayList<Entity>();
-		Random random = new Random();
-		for(int i=0;i<400;i++){
-			float x = random.nextFloat()*800;
-			float z = random.nextFloat() * 800;	
-			float y = terrain.getHeightOfTerrain(x, z) - 1;
-			entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
-			entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
-
-		}
+//		List<Entity> entities = new ArrayList<Entity>();
+//		Random random = new Random();
+//		for(int i=0;i<400;i++){
+//			float x = random.nextFloat()*800;
+//			float z = random.nextFloat() * 800;	
+//			float y = terrain.getHeightOfTerrain(x, z) - 1;
+//			entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
+//			entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
+//
+//		}
 
 		Light light = new Light(new Vector3f(20000,20000,2000),new Vector3f(1,1,1));
 
@@ -80,9 +76,9 @@ public class MainGameLoop {
 			renderer.processTerrain(terrain);
 
 
-			for(Entity entity:entities){
-				renderer.processEntity(entity);
-			}
+//			for(Entity entity:entities){
+//				renderer.processEntity(entity);
+//			}
 			renderer.render(light, camera);
 			DisplayManager.updateDisplay();
 		}
