@@ -30,6 +30,7 @@ public class MainGameLoop {
 		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
 		Terrain terrain = new Terrain(0,0,loader,texturePack,blendMap);
+		
 //		Terrain terrain = new Terrain(0,0,loader,texturePack, blendMap);
 
 //		RawModel model = OBJLoader.loadObjModel("rock", loader);

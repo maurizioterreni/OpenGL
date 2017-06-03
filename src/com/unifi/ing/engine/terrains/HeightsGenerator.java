@@ -3,7 +3,7 @@ package com.unifi.ing.engine.terrains;
 import java.util.Random;
 
 public class HeightsGenerator {
-	private static final float AMPLITUDE = 40f;
+	private static final float AMPLITUDE = 70f;
 	private static final int OCTAVES = 3;
 	private static final float ROUGHNESS = 0.3f;
 

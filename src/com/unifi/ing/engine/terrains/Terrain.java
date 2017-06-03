@@ -12,8 +12,6 @@ import com.unifi.ing.engine.utils.Maths;
 public class Terrain {
 
 	private static final float SIZE = 2800;
-//	private static final float MAX_HEIGHT = 40;
-//	private static final float MAX_PIXEL_COLOUR = 256 * 256 * 256;
 
 	private float x;
 	private float z;
@@ -22,14 +20,6 @@ public class Terrain {
 	private TerrainTexture blendMap;
 
 	private float[][] heights;
-
-//	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap, String heightMap){
-//		this.texturePack = texturePack;
-//		this.blendMap = blendMap;
-//		this.x = gridX * SIZE;
-//		this.z = gridZ * SIZE;
-//		this.model = generateTerrain(loader,heightMap);
-//	}
 	
 	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap){
 		this.texturePack = texturePack;
@@ -138,7 +128,7 @@ public class Terrain {
 	}
 
 
-	private Vector3f calculateNormal(int x, int z, HeightsGenerator generator){
+	public Vector3f calculateNormal(int x, int z, HeightsGenerator generator){
 		float heightL = getHeight(x-1, z, generator);
 		float heightR = getHeight(x+1, z, generator);
 		float heightD = getHeight(x, z-1, generator);
@@ -147,18 +137,19 @@ public class Terrain {
 		normal.normalise();
 		return normal;
 	}
+	
+	
+	public Vector3f calculateNormal(float x, float z, HeightsGenerator generator){
+		float heightL = getHeight((int)(x-1f), (int)z, generator);
+		float heightR = getHeight((int)(x+1f), (int)z, generator);
+		float heightD = getHeight((int)x, (int)(z-1f), generator);
+		float heightU = getHeight((int)x, (int)(z+1f), generator);
+		Vector3f normal = new Vector3f(heightL - heightR, 2f, heightD - heightU);
+		normal.normalise();
+		return normal;
+	}
 
 	private float getHeight(int x, int z, HeightsGenerator generator){
-//		if(x<0 || x>=image.getHeight() || z<0 || z>= image.getHeight()){
-//			return 0;
-//		}
-//
-//		float height = image.getRGB(x, z);
-//
-//		height += MAX_PIXEL_COLOUR/2f;
-//		height /= MAX_PIXEL_COLOUR/2f;
-//		height *= MAX_HEIGHT;
-//		return height;
 		return generator.generateHeight(x, z);
 	}
 
