@@ -117,4 +117,11 @@ public class Maths {
 		return x1 * x2 + y1 * y2 + z1 * z2;
 	}
 	
+	static public float len(Vector3f v){
+		return (float) Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2) + Math.pow(v.z, 2));
+	}
+	static public float mul(Vector3f a, Vector3f b){
+		return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
+	}
+	
 }

@@ -11,6 +11,12 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+
+/*
+ * 
+ * Classe astratta che fornisce le basi ai vari modelli per utilizzare gli shader 
+ * 
+ */
 public abstract class ShaderProgram {
 	
 	private int programID;
@@ -86,6 +92,7 @@ public abstract class ShaderProgram {
 		GL20.glUniformMatrix4(location, false, matrixBuffer);
 	}
 	
+//	Metodo che consente di leggere e compilare lo shader fornito come parametro di ingresso
 	private static int loadShader(String file, int type){
 		StringBuilder shaderSource = new StringBuilder();
 		try{
@@ -99,9 +106,11 @@ public abstract class ShaderProgram {
 			e.printStackTrace();
 			System.exit(-1);
 		}
+//		Utilizzo la OpenGl 2.0 per creare uno shader 
 		int shaderID = GL20.glCreateShader(type);
 		GL20.glShaderSource(shaderID, shaderSource);
 		GL20.glCompileShader(shaderID);
+//		Compilo lo shader nel caso ci sia un errore termino il programma
 		if(GL20.glGetShaderi(shaderID, GL20.GL_COMPILE_STATUS )== GL11.GL_FALSE){
 			System.out.println(GL20.glGetShaderInfoLog(shaderID, 500));
 			System.err.println("Could not compile shader!");

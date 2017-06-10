@@ -52,7 +52,7 @@ public class Loader {
 	}
 
 	public int loadTexture(String fileName){
-		Texture texture = null;
+ 		Texture texture = null;
 		try {
 			texture = TextureLoader.getTexture("PNG", new FileInputStream("res/" + fileName + ".png"));
 			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);

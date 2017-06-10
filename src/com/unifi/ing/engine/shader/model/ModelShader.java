@@ -1,17 +1,21 @@
-package com.unifi.ing.engine.shader;
+package com.unifi.ing.engine.shader.model;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Light;
+import com.unifi.ing.engine.shader.ShaderProgram;
 import com.unifi.ing.engine.utils.Maths;
 
 
-public class StaticShader extends ShaderProgram{
+public class ModelShader extends ShaderProgram{
 	
-	private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/vertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/fragmentShader.txt";
+//	Questa classe estende ShaderProgram viene principalmente utilizzata sia per gli oggetti statici si a per gli oggetti dinamici come il Rover
+//	Consente di caricare lo shader fornendo i valori di tutti i parametri utilizzati per il calcolo delle texture e dei vertici
+	
+	private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/model/vertexShader.txt";
+	private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/model/fragmentShader.txt";
 	
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
@@ -23,7 +27,7 @@ public class StaticShader extends ShaderProgram{
 	private int location_useFakeLighting;
 	private int location_SkyColour;
 
-	public StaticShader() {
+	public ModelShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
 	}
 

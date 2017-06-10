@@ -12,6 +12,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import com.unifi.ing.engine.Loader;
 import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.model.RawModel;
+import com.unifi.ing.engine.shader.sky.SkyboxShader;
 
 /*
  * Classe che genera un cubo utilizzato per realizzare il cielo

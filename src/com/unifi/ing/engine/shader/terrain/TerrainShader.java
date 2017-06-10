@@ -1,19 +1,21 @@
-package com.unifi.ing.engine.shader;
+package com.unifi.ing.engine.shader.terrain;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Light;
+import com.unifi.ing.engine.shader.ShaderProgram;
 import com.unifi.ing.engine.utils.Maths;
 
 
 
 public class TerrainShader extends ShaderProgram{
 	
+//	Shader utilizzato principalmente per il terreno fornisce allo shader i vari parametri per consentire di modellare l'oggetto
 	
-	private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/terrainVertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/terrainFragmentShader.txt";
+	private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/terrain/terrainVertexShader.txt";
+	private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/terrain/terrainFragmentShader.txt";
 	
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;

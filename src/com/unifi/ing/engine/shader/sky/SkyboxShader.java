@@ -1,4 +1,4 @@
-package com.unifi.ing.engine.skybox;
+package com.unifi.ing.engine.shader.sky;
 
 import org.lwjgl.util.vector.Matrix4f;
 
@@ -9,8 +9,8 @@ import com.unifi.ing.engine.utils.Maths;
 
 public class SkyboxShader extends ShaderProgram{
  
-    private static final String VERTEX_FILE = "src/com/unifi/ing/engine/skybox/skyboxVertexShader.txt";
-    private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/skybox/skyboxFragmentShader.txt";
+    private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/sky/skyboxVertexShader.txt";
+    private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/sky/skyboxFragmentShader.txt";
      
     private int location_projectionMatrix;
     private int location_viewMatrix;

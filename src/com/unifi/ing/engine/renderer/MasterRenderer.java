@@ -14,8 +14,8 @@ import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Entity;
 import com.unifi.ing.engine.entity.Light;
 import com.unifi.ing.engine.model.TexturedModel;
-import com.unifi.ing.engine.shader.StaticShader;
-import com.unifi.ing.engine.shader.TerrainShader;
+import com.unifi.ing.engine.shader.model.ModelShader;
+import com.unifi.ing.engine.shader.terrain.TerrainShader;
 import com.unifi.ing.engine.skybox.SkyboxRenderer;
 import com.unifi.ing.engine.terrains.Terrain;
 
@@ -37,7 +37,7 @@ public class MasterRenderer {
 	
 	private Matrix4f projectionMatrix;
 	
-	private StaticShader shader = new StaticShader();
+	private ModelShader shader = new ModelShader();
 	private EntityRenderer renderer;
 	
 	private TerrainRenderer terrainRenderer;

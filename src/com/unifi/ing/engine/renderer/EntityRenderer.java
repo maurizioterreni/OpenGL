@@ -12,7 +12,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import com.unifi.ing.engine.entity.Entity;
 import com.unifi.ing.engine.model.RawModel;
 import com.unifi.ing.engine.model.TexturedModel;
-import com.unifi.ing.engine.shader.StaticShader;
+import com.unifi.ing.engine.shader.model.ModelShader;
 import com.unifi.ing.engine.texture.ModelTexture;
 import com.unifi.ing.engine.utils.Maths;
 
@@ -20,9 +20,9 @@ import com.unifi.ing.engine.utils.Maths;
 
 public class EntityRenderer {
 
-	private StaticShader shader;
+	private ModelShader shader;
 
-	public EntityRenderer(StaticShader shader,Matrix4f projectionMatrix) {
+	public EntityRenderer(ModelShader shader,Matrix4f projectionMatrix) {
 		this.shader = shader;
 		shader.start();
 		shader.loadProjectionMatrix(projectionMatrix);

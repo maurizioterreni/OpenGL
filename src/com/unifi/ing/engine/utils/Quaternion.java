@@ -22,6 +22,10 @@ public class Quaternion implements Serializable {
 	public Quaternion (float x, float y, float z, float w) {
 		this.set(x, y, z, w);
 	}
+	
+	public Quaternion (Vector3f v) {
+		this.set(v.x, v.y, v.z, 0);
+	}
 
 	public Quaternion () {
 		idt();

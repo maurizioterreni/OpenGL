@@ -6,7 +6,6 @@ import org.lwjgl.util.vector.Vector3f;
 import com.unifi.ing.engine.model.TexturedModel;
 import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.utils.DisplayManager;
-import com.unifi.ing.engine.utils.Quaternion;
 
 public class Rover extends Entity{
 
@@ -18,7 +17,7 @@ public class Rover extends Entity{
 	private float currentSpeed = 0;
 	private float currentTurnSpeed = 0;
 	private float upwardsSpeed = 0;
-	float offset = 0.5f;
+
 
 
 
@@ -42,30 +41,64 @@ public class Rover extends Entity{
 			super.getPosition().y = terrainHeight;
 		}
 		
-		Vector3f normal = calculateNormal(this.getPosition().x, this.getPosition().z, terrain);
-		
-		rotateRover(normal);
+//		rotateRover(terrain);
 		
 	}
 	
-	private void rotateRover(Vector3f normal){
-		Quaternion quaternion = new Quaternion(normal.x, normal.y, normal.z, normal.y).nor();
-		this.setRotX(quaternion.getPitch());
-		this.setRotZ(quaternion.getRoll());
-	}
-	
-	private Vector3f calculateNormal(float x, float z, Terrain terrain){
-		
-		float heightL = terrain.getHeightOfTerrain(x - offset, z);//getHeight((int)(x-1f), (int)z, generator);
-		float heightR = terrain.getHeightOfTerrain(x + offset, z);//getHeight((int)(x+1f), (int)z, generator);
-		float heightD = terrain.getHeightOfTerrain(x, z - offset);//getHeight((int)x, (int)(z-1f), generator);
-		float heightU = terrain.getHeightOfTerrain(x, z + offset);//getHeight((int)x, (int)(z+1f), generator);
-		Vector3f normal = new Vector3f(heightL - heightR, 2f, heightD - heightU);
-		
-		normal.normalise();
-		return normal; 
-	}
-	
+//	private void rotateRover(Terrain terrain) {
+//		float offset = 2f;
+//		
+//		float x = this.getPosition().x;
+//		float y = this.getPosition().y;
+//		float z = this.getPosition().z;
+//		
+//		Vector3f vX = rotateVector(pointTwoVector(new Vector3f(x,y, z + offset), 
+//				new Vector3f(x,y, z - offset)),this.getRotY());
+//		
+//		Vector3f v1 = rotateVector(pointTwoVector(new Vector3f(x + offset,terrain.getHeightOfTerrain(x + offset, z + offset), z + offset), 
+//				new Vector3f(x + offset,terrain.getHeightOfTerrain(x + offset, z - offset), z - offset)),this.getRotY());
+//		vX.normalise();
+//		v1.normalise();
+//		
+//		
+////		Vector3f vZ = rotateVector(pointTwoVector(new Vector3f(x + offset,y, z), 
+////				new Vector3f(x - offset,y, z)),this.getRotY());
+////		
+////		Vector3f v2 = rotateVector(pointTwoVector(new Vector3f(x + offset,terrain.getHeightOfTerrain(x + offset, z + offset), z + offset), 
+////				new Vector3f(x + offset,terrain.getHeightOfTerrain(x + offset, z - offset), z - offset)),this.getRotY());
+//		
+//		
+//		
+//		
+//		//float angleZ = (float) Math.acos( Maths.mul(v2, vZ) / (Maths.len(v2) * Maths.len(vZ)));
+//		float angleX = (float) Math.acos( Maths.mul(v1, vX) / (Maths.len(v1) * Maths.len(vX)) );
+//		
+//		
+//		Quaternion quaternion = new Quaternion(vX)
+//		
+//		this.setRotX(50);
+//		
+//		
+////		this.setRotX(angleX * Maths.radiansToDegrees);
+////		this.setRotZ(angleZ * Maths.radiansToDegrees); 
+//		
+//	}
+//	
+//	private Vector3f rotateVector(Vector3f v , float teta){
+//		float v1 = (float) (v.x * Math.cos(teta) - v.z * Math.sin(teta));
+//		float v2 = (float) (v.x * Math.sin(teta) + v.z * Math.cos(teta));
+//		
+//		return new Vector3f(v1,v.y,v2);
+//	}
+//
+//
+//	private Vector3f pointTwoVector(Vector3f p1, Vector3f p2){
+//		if(p1.y > p2.y){
+//			return new Vector3f(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
+//		}else{
+//			return new Vector3f(p1.x - p2.x, p1.y - p2.y, p1.z - p2.z);
+//		}
+//	}
 
 	private void checkInputs(Terrain terrain){
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)){
@@ -104,20 +137,13 @@ public class Rover extends Entity{
 			this.setRotZ(this.getRotZ() - 0.1f);
 		}
 
-		if(Keyboard.isKeyDown(Keyboard.KEY_L)){
-			offset = offset + 0.01f;
-			System.out.println(offset);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_P)){
-			offset = offset - 0.01f;
-			System.out.println(offset);
-		}
+		
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_R)){
 			this.setRotX(0);
 			this.setRotY(0);
 			this.setRotZ(0);
-			this.setPosition(new Vector3f(600, 10030, 550));
+			this.setPosition(new Vector3f(600, 30, 550));
 		}
 
 	}
