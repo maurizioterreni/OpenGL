@@ -1,8 +1,9 @@
 package com.unifi.ing.engine.shader;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
@@ -95,8 +96,9 @@ public abstract class ShaderProgram {
 //	Metodo che consente di leggere e compilare lo shader fornito come parametro di ingresso
 	private static int loadShader(String file, int type){
 		StringBuilder shaderSource = new StringBuilder();
+		InputStream in = Class.class.getResourceAsStream(file);
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			String line;
 			while((line = reader.readLine())!=null){
 				shaderSource.append(line).append("//\n");

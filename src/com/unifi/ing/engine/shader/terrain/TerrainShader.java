@@ -7,6 +7,7 @@ import com.unifi.ing.engine.entity.Camera;
 import com.unifi.ing.engine.entity.Light;
 import com.unifi.ing.engine.shader.ShaderProgram;
 import com.unifi.ing.engine.utils.Maths;
+import com.unifi.ing.engine.utils.ShaderPath;
 
 
 
@@ -14,8 +15,8 @@ public class TerrainShader extends ShaderProgram{
 	
 //	Shader utilizzato principalmente per il terreno fornisce allo shader i vari parametri per consentire di modellare l'oggetto
 	
-	private static final String VERTEX_FILE = "src/com/unifi/ing/engine/shader/terrain/terrainVertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/com/unifi/ing/engine/shader/terrain/terrainFragmentShader.txt";
+	private static final String VERTEX_FILE = ShaderPath.getShaderPath("terrain/terrainVertexShader.txt");
+	private static final String FRAGMENT_FILE = ShaderPath.getShaderPath("terrain/terrainFragmentShader.txt");
 	
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;

@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Quaternion;
 
 import com.unifi.ing.engine.entity.Entity;
 import com.unifi.ing.engine.model.RawModel;
@@ -49,13 +50,13 @@ public class EntityRenderer {
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glEnableVertexAttribArray(2);
 		ModelTexture texture = model.getTexture();
-		
+
 		if(texture.isHasTransparency()){
 			MasterRenderer.disableCulling();
 		}
-		
+
 		shader.loadFakeLightingVariable(texture.isUseFakeLighting());
-		
+
 		shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getTextureID());
@@ -70,9 +71,25 @@ public class EntityRenderer {
 	}
 
 	private void prepareInstance(Entity entity) {
+		
 		Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(),
 				entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
 		shader.loadTransformationMatrix(transformationMatrix);
+ 	}
+	
+	public Quaternion addRotation(float rx, float ry, float rz) {
+		Quaternion rotation = new Quaternion();
+		// Rotate Y axis
+		Quaternion.mul(new Quaternion(1f, 0f, 0f, ry * Maths.PI_OVER_180), rotation, rotation);
+		rotation.normalise();
+		// Rotate X axis
+		Quaternion.mul(rotation, new Quaternion(0f, 1f, 0f, rx * Maths.PI_OVER_180),rotation);
+		rotation.normalise();
+		// Rotate Z axis
+		Quaternion.mul(new Quaternion(0f, 0f, 1f, rz * Maths.PI_OVER_180), rotation, rotation);
+		rotation.normalise();
+		
+		return rotation;
 	}
-
+	
 }

@@ -1,9 +1,13 @@
 package com.unifi.ing.engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.unifi.ing.engine.entity.Camera;
+import com.unifi.ing.engine.entity.Cube;
 import com.unifi.ing.engine.entity.Light;
 import com.unifi.ing.engine.entity.Rover;
 import com.unifi.ing.engine.model.RawModel;
@@ -35,23 +39,7 @@ public class MainGameLoop {
 
 		Terrain terrain = new Terrain(0,0,loader,texturePack,blendMap);
 		
-
-//		RawModel model = OBJLoader.loadObjModel("rock", loader);
-
-//		TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("rock")));
-//
-//
-//		List<Entity> entities = new ArrayList<Entity>();
-//		Random random = new Random();
-//		for(int i=0;i<400;i++){
-//			float x = random.nextFloat()*800;
-//			float z = random.nextFloat() * 800;	
-//			float y = terrain.getHeightOfTerrain(x, z) - 1;
-//			entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
-//			entities.add(new Entity(staticModel, new Vector3f(x,y,z),0,0,0,1));
-//
-//		}
-
+		
 //		Creo l'oggetto luce e lo posiziono ad una determinata altezza
 		Light light = new Light(new Vector3f(20000,20000,2000),new Vector3f(1,1,1));
 
@@ -62,7 +50,7 @@ public class MainGameLoop {
 //		Carico il modello del Rover
 		RawModel roverModel = OBJLoader.loadObjModel("rover", loader);
 
-		TexturedModel roverTexturedModel = new TexturedModel(roverModel, new ModelTexture(loader.loadTexture("roverTexture")));
+		TexturedModel roverTexturedModel = new TexturedModel(roverModel, new ModelTexture(loader.loadTexture("rover")));
 
 //		Setto la posizione del rover in una determinata area
 		Rover rover = new Rover(roverTexturedModel, new Vector3f(600, 30, 550), 0, 0, 0, 1);
@@ -70,7 +58,29 @@ public class MainGameLoop {
 //		Inizializzo la camera fornendogli come parametro l'oggetto da seguire
 		
 		Camera camera = new Camera(rover); 
+		
+		List<Cube> cubes = new ArrayList<>();
+		RawModel cubeRaw = OBJLoader.loadObjModel("cube", loader); 
+		
+		for(int i = 1; i < 5; i++){
+			float x = .0f;
+			float z = .0f;
 
+			if (i == 1)
+				x = 2.0f;
+			else if (i == 2)
+				x = -2.0f;
+			else if (i == 3)
+				z = 2f;
+			else
+				z = -2f;
+				
+			TexturedModel cubeTexture = new TexturedModel(cubeRaw, new ModelTexture(loader.loadTexture("cube" + i)));
+			Cube cube = new Cube(cubeTexture, rover.getPosition(), 0, 0, 0, 1,x ,z);
+			
+			rover.addObserver(cube);
+			cubes.add(cube);
+		}
 
 //		Rimaniamo all'interno del ciclo finchè non vi è una richiesta di chiusura 
 		while(!Display.isCloseRequested()){
@@ -82,6 +92,9 @@ public class MainGameLoop {
 			
 //			Eseguo il renderer sul rover
 			renderer.processEntity(rover);
+			for (Cube cube : cubes) {
+				renderer.processEntity(cube);
+			}
 //			Eseguo il renderer sul terreno
 			renderer.processTerrain(terrain);
 
