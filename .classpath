@@ -2,12 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/maurizio/Documents/UNIFI/Magistrale/Computer Graphics and 3D/jar/slick-util.jar"/>
-	<classpathentry kind="lib" path="/Users/maurizio/Documents/UNIFI/Magistrale/Computer Graphics and 3D/jar/lwjgl.jar">
+	<classpathentry kind="lib" path="lib/jar/slick-util.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lwjgl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/maurizio/Documents/UNIFI/Magistrale/Computer Graphics and 3D/native/macosx"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="OpenGL/lib/native"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/maurizio/Documents/UNIFI/Magistrale/Computer Graphics and 3D/jar/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="lib/jar/PNGDecoder.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
