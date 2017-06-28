@@ -81,6 +81,7 @@ public class Terrain {
 
 	private RawModel generateTerrain(Loader loader){
 
+		
 		HeightsGenerator generator = new HeightsGenerator();
 		
 		
@@ -96,6 +97,7 @@ public class Terrain {
 		for(int i=0;i<VERTEX_COUNT;i++){
 			for(int j=0;j<VERTEX_COUNT;j++){
 				vertices[vertexPointer*3] = (float)j/((float)VERTEX_COUNT - 1) * SIZE;
+				//Genero l'altezza del terreno a seconda delle coordinate x,z
 				float height = getHeight(j, i, generator);
 				heights[j][i] = height;
 				vertices[vertexPointer*3+1] = height;
