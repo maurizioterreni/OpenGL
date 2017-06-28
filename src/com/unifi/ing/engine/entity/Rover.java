@@ -9,6 +9,7 @@ import org.lwjgl.util.vector.Vector3f;
 import com.unifi.ing.engine.model.TexturedModel;
 import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.utils.DisplayManager;
+import com.unifi.ing.engine.utils.Maths;
 import com.unifi.ing.pattern.observer.Observable;
 import com.unifi.ing.pattern.observer.Observer;
 
@@ -53,8 +54,30 @@ public class Rover extends Entity implements Observable{
 			
 		notifyEntity(terrain);
 		
+		super.setRotZ(calcRotZ());
+		super.setRotX(calcRotX());
 	}
 	
+	private float calcRotZ(){
+		Cube cubeA = (Cube) observerEntity.get(1);
+		Cube cubeB = (Cube) observerEntity.get(3);
+		
+		float a = Maths.mul(cubeA.getPosition(), cubeB.getPosition());
+		float b = Maths.len(cubeA.getPosition()) * Maths.len(cubeB.getPosition());
+		
+		return (float) Math.acos(a/b);
+	}
+	
+	
+	private float calcRotX(){
+		Cube cubeA = (Cube) observerEntity.get(0);
+		Cube cubeB = (Cube) observerEntity.get(2);
+		
+		float a = Maths.mul(cubeA.getPosition(), cubeB.getPosition());
+		float b = Maths.len(cubeA.getPosition()) * Maths.len(cubeB.getPosition());
+		
+		return (float) Math.acos(a/b);
+	}
 	
 	private void checkInputs(Terrain terrain){
 

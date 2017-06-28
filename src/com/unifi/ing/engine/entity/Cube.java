@@ -25,7 +25,7 @@ public class Cube extends Entity implements Observer{
 		Rover rover = ((Rover) entity);
 		Vector3f roverPosition = rover.getPosition();
 		Vector3f position = rotateVector(new Vector3f(roverPosition.x + offsetX, 0, roverPosition.z + offsetZ),
-				rover.getPosition(), Maths.toRadiants(rover.getRotY()));
+				rover.getPosition(), Maths.toRadians(rover.getRotY()));
 		position.y = terrain.getHeightOfTerrain(position.x, position.z);
 		this.setPosition(position);
 	}

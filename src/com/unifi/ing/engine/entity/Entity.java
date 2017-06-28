@@ -2,9 +2,11 @@ package com.unifi.ing.engine.entity;
 
 
 
+import org.lwjgl.util.vector.Quaternion;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.unifi.ing.engine.model.TexturedModel;
+import com.unifi.ing.engine.utils.Maths;
 
 public class Entity {
 
@@ -85,4 +87,23 @@ public class Entity {
 		this.scale = scale;
 	}
 
+	public static Quaternion getRotationQuat(float rotX, float rotY, float rotZ){
+		float attitude = Maths.toRadians(rotX);
+		float heading = Maths.toRadians(rotY);
+		float bank = Maths.toRadians(rotZ);
+		
+		// Assuming the angles are in radians.
+		float c1 = (float) Math.cos(heading);
+		float s1 = (float) Math.sin(heading);
+		float c2 = (float) Math.cos(attitude);
+		float s2 = (float) Math.sin(attitude);
+		float c3 = (float) Math.cos(bank);
+		float s3 = (float) Math.sin(bank);
+		float w = (float) (Math.sqrt(1.0 + c1 * c2 + c1*c3 - s1 * s2 * s3 + c2*c3) / 2.0);
+		float w4 = (4.0f * w);
+		float x = (c2 * s3 + c1 * s3 + s1 * s2 * c3) / w4 ;
+		float y = (s1 * c2 + s1 * c3 + c1 * s2 * s3) / w4 ;
+		float z = (-s1 * s3 + c1 * s2 * c3 +s2) / w4 ;
+		return new Quaternion(x, y, z, w);
+	}
 }

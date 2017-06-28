@@ -30,6 +30,17 @@ public class Maths {
 		Matrix4f.scale(new Vector3f(scale, scale, scale), matrix, matrix);
 		return matrix;
 	}
+	
+	
+	public static Matrix4f createTransformationMatrix(Vector3f translation, Quaternion rotation, float scale){
+		Matrix4f matrix = new Matrix4f();
+
+		matrix.setIdentity();
+		Matrix4f.translate(translation, matrix, matrix);
+		Matrix4f.mul(matrix, convertQuaternionToMatrix4f(rotation), matrix);
+		Matrix4f.scale(new Vector3f(scale, scale, scale), matrix, matrix);
+		return matrix;
+	}
 
 	public static Matrix4f createTransformationMatrix(Vector3f translation, Vector3f rot, float scale){
 		Matrix4f matrix = new Matrix4f();
@@ -201,8 +212,12 @@ public class Maths {
 	static public float toDegree(float angle){
 		return angle * radiansToDegrees;
 	}
+	
+	static public float toDegree(double angle){
+		return (float) angle * radiansToDegrees;
+	}
 
-	static public float toRadiants(float angle){
+	static public float toRadians(float angle){
 		return angle * degreesToRadians;
 	}
 
