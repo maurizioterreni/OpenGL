@@ -23,7 +23,7 @@ public class Rover extends Entity implements Observable{
 	private float currentSpeed = 0;
 	private float currentTurnSpeed = 0;
 	private float upwardsSpeed = 0;
-	
+
 	private float rotX = 1.60f;
 	private float rotY = 1.60f;
 	private float rotZ = 1.60f;
@@ -51,34 +51,49 @@ public class Rover extends Entity implements Observable{
 			upwardsSpeed = 0;
 			super.getPosition().y = terrainHeight;
 		}
-			
+
 		notifyEntity(terrain);
-		
-//		super.setRotZ(calcRotZ());
-//		super.setRotX(calcRotX());
+
+				super.setRotZ(calcRotZ());
+				super.setRotX(calcRotX());
 	}
-	
+
 	private float calcRotZ(){
 		Cube cubeA = (Cube) observerEntity.get(1);
 		Cube cubeB = (Cube) observerEntity.get(3);
+
+		Vector3f vet = new Vector3f(cubeB.getPosition().x - cubeA.getPosition().x, 
+				cubeB.getPosition().y - cubeA.getPosition().y,
+				cubeB.getPosition().z - cubeA.getPosition().z);
+		Vector3f zero = new Vector3f(vet.x, 0, vet.z);
 		
-		float a = Maths.mul(cubeA.getPosition(), cubeB.getPosition());
-		float b = Maths.len(cubeA.getPosition()) * Maths.len(cubeB.getPosition());
-		
-		return (float) Math.acos(a/b);
+		float a = Maths.mul(vet, zero);
+		float b = Maths.len(vet) * Maths.len(zero);
+
+		return (float) Maths.toDegree(Math.acos(a/b));
 	}
-	
-	
+
+
 	private float calcRotX(){
 		Cube cubeA = (Cube) observerEntity.get(0);
 		Cube cubeB = (Cube) observerEntity.get(2);
+
+		Vector3f vet = new Vector3f(cubeB.getPosition().x - cubeA.getPosition().x, 
+				cubeB.getPosition().y - cubeA.getPosition().y,
+				cubeB.getPosition().z - cubeA.getPosition().z);
+		Vector3f zero = new Vector3f(vet.x, 0, vet.z);
 		
-		float a = Maths.mul(cubeA.getPosition(), cubeB.getPosition());
-		float b = Maths.len(cubeA.getPosition()) * Maths.len(cubeB.getPosition());
-		
-		return (float) Math.acos(a/b);
+		float a = Maths.mul(vet, zero);
+		float b = Maths.len(vet) * Maths.len(zero);
+
+		return (float) Maths.toDegree(Math.acos(a/b));
 	}
-	
+
+
+	private float calcAng(float a, float b){
+		float c = (float) Math.sqrt(Math.pow(a,2) + Math.pow(b, 2));
+		return (float) Math.toDegrees(Math.asin(a/c));
+	}
 	private void checkInputs(Terrain terrain){
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)){
@@ -125,7 +140,7 @@ public class Rover extends Entity implements Observable{
 		}
 
 	}
-	
+
 
 
 
