@@ -54,8 +54,8 @@ public class Rover extends Entity implements Observable{
 			
 		notifyEntity(terrain);
 		
-		super.setRotZ(calcRotZ());
-		super.setRotX(calcRotX());
+//		super.setRotZ(calcRotZ());
+//		super.setRotX(calcRotX());
 	}
 	
 	private float calcRotZ(){
