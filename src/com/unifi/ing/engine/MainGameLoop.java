@@ -1,8 +1,5 @@
 package com.unifi.ing.engine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -59,8 +56,8 @@ public class MainGameLoop {
 		
 		Camera camera = new Camera(rover); 
 		
-		List<Cube> cubes = new ArrayList<>();
-		RawModel cubeRaw = OBJLoader.loadObjModel("cube", loader); 
+//		List<Cube> cubes = new ArrayList<>();
+//		RawModel cubeRaw = OBJLoader.loadObjModel("cube", loader); 
 		
 		for(int i = 1; i < 5; i++){
 			float x = .0f;
@@ -75,11 +72,11 @@ public class MainGameLoop {
 			else
 				z = -2f;
 				
-			TexturedModel cubeTexture = new TexturedModel(cubeRaw, new ModelTexture(loader.loadTexture("cube" + i)));
-			Cube cube = new Cube(cubeTexture, rover.getPosition(), 0, 0, 0, 1,x ,z,i);
+//			TexturedModel cubeTexture = new TexturedModel(cubeRaw, new ModelTexture(loader.loadTexture("cube" + i)));
+			Cube cube = new Cube(null, rover.getPosition(), 0, 0, 0, 1,x ,z,i);
 			
 			rover.addObserver(cube);
-			cubes.add(cube);
+//			cubes.add(cube);
 		}
 
 //		Rimaniamo all'interno del ciclo finchè non vi è una richiesta di chiusura 
@@ -92,9 +89,9 @@ public class MainGameLoop {
 			
 //			Eseguo il renderer sul rover
 			renderer.processEntity(rover);
-			for (Cube cube : cubes) {
-				renderer.processEntity(cube);
-			}
+//			for (Cube cube : cubes) {
+//				renderer.processEntity(cube);
+//			}
 //			Eseguo il renderer sul terreno
 			renderer.processTerrain(terrain);
 
