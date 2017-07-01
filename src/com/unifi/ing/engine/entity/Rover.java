@@ -24,9 +24,9 @@ public class Rover extends Entity implements Observable{
 	private float currentTurnSpeed = 0;
 	private float upwardsSpeed = 0;
 
-	private float rotX = 1.60f;
-	private float rotY = 1.60f;
-	private float rotZ = 1.60f;
+	private float rotX = 0.60f;
+	private float rotY = 0.60f;
+	private float rotZ = 0.60f;
 
 	List<Observer> observerEntity = null;
 
@@ -53,47 +53,54 @@ public class Rover extends Entity implements Observable{
 		}
 
 		notifyEntity(terrain);
-
-				super.setRotZ(calcRotZ());
-				super.setRotX(calcRotX());
+		calcRotZ();
+		super.setRotZ(calcRotZ());
+		super.setRotX(calcRotX());
+		
+		
 	}
+	
+	
 
 	private float calcRotZ(){
-		Cube cubeA = (Cube) observerEntity.get(1);
-		Cube cubeB = (Cube) observerEntity.get(3);
-
-		Vector3f vet = new Vector3f(cubeB.getPosition().x - cubeA.getPosition().x, 
-				cubeB.getPosition().y - cubeA.getPosition().y,
-				cubeB.getPosition().z - cubeA.getPosition().z);
-		Vector3f zero = new Vector3f(vet.x, 0, vet.z);
+		Vector3f vA = ((Cube) observerEntity.get(2)).getPosition();
+		Vector3f vB = ((Cube) observerEntity.get(3)).getPosition();
 		
+		
+		Vector3f vet = new Vector3f(vB.x - vA.x, 
+				vB.y - vA.y,
+				vB.z - vA.z);
+		Vector3f zero = new Vector3f(vet.x,0,vet.z);
+
 		float a = Maths.mul(vet, zero);
 		float b = Maths.len(vet) * Maths.len(zero);
 
-		return (float) Maths.toDegree(Math.acos(a/b));
+		if(vB.y >= vA.y)
+			return (float) Maths.toDegree(Math.acos(a/b));
+		
+		return (float) (0 - Maths.toDegree(Math.acos(a/b)));
 	}
 
 
 	private float calcRotX(){
-		Cube cubeA = (Cube) observerEntity.get(0);
-		Cube cubeB = (Cube) observerEntity.get(2);
-
-		Vector3f vet = new Vector3f(cubeB.getPosition().x - cubeA.getPosition().x, 
-				cubeB.getPosition().y - cubeA.getPosition().y,
-				cubeB.getPosition().z - cubeA.getPosition().z);
-		Vector3f zero = new Vector3f(vet.x, 0, vet.z);
+		Vector3f vA = ((Cube) observerEntity.get(0)).getPosition();
+		Vector3f vB = ((Cube) observerEntity.get(1)).getPosition();
 		
+		
+		Vector3f vet = new Vector3f(vB.x - vA.x, 
+				vB.y - vA.y,
+				vB.z - vA.z);
+		Vector3f zero = new Vector3f(vet.x,0,vet.z);
+
 		float a = Maths.mul(vet, zero);
 		float b = Maths.len(vet) * Maths.len(zero);
 
-		return (float) Maths.toDegree(Math.acos(a/b));
+		if(vA.y >= vB.y)
+			return (float) Maths.toDegree(Math.acos(a/b));
+		
+		return (float) (0 - Maths.toDegree(Math.acos(a/b)));
 	}
 
-
-	private float calcAng(float a, float b){
-		float c = (float) Math.sqrt(Math.pow(a,2) + Math.pow(b, 2));
-		return (float) Math.toDegrees(Math.asin(a/c));
-	}
 	private void checkInputs(Terrain terrain){
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)){
@@ -153,5 +160,26 @@ public class Rover extends Entity implements Observable{
 
 	public void addObserver(Observer observer){
 		observerEntity.add(observer);
+	}
+	
+	
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		
+		str.append("#################################\n");
+		str.append("x:\t" + this.getPosition().x + "\n");
+		str.append("y:\t" + this.getPosition().y + "\n");
+		str.append("z:\t" + this.getPosition().z + "\n");
+		str.append("---------------------------------\n");
+		
+		for (Observer observer : observerEntity) {
+			Cube c = (Cube) observer;
+			
+			str.append(c.toString());
+			
+		}
+		
+		return str.toString();
 	}
 }

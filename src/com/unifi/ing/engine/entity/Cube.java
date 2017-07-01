@@ -12,12 +12,24 @@ public class Cube extends Entity implements Observer{
 
 	private float offsetX;
 	private float offsetZ;
+	private String colore;
 
 	public Cube(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, 
-			float scale, float offsetX, float offsetZ) {
+			float scale, float offsetX, float offsetZ, int i) {
 		super(model, position, rotX, rotY, rotZ, scale);
 		this.offsetX = offsetX;
 		this.offsetZ = offsetZ;
+		if(i == 1){
+			this.colore = "Rosso";
+		}else if(i == 2){
+			this.colore = "Verde";
+		}else if(i == 3){
+			this.colore = "Viola";
+		}else if(i == 4){
+			this.colore = "Giallo";
+		}else{
+			this.colore = "error";
+		}
 	}
 
 	@Override
@@ -35,11 +47,11 @@ public class Cube extends Entity implements Observer{
 
 		float v1 = (float) (center.x + (v.x - center.x) * Math.cos(teta) - (v.z - center.z) * Math.sin(teta));
 		float v2 = (float) (center.z + (v.x - center.x) * Math.sin(teta) + (v.z - center.z) * Math.cos(teta));
-		
-		
+
+
 		return new Vector3f(v1,v.y,v2);
 	}
-	
+
 	public float getOffsetX() {
 		return offsetX;
 	}
@@ -54,6 +66,19 @@ public class Cube extends Entity implements Observer{
 
 	public void setOffsetZ(float offsetZ) {
 		this.offsetZ = offsetZ;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("---------------------------------\n");
+		str.append("x:\t" + this.getPosition().x + "\n");
+		str.append("y:\t" + this.getPosition().y + "\n");
+		str.append("z:\t" + this.getPosition().z + "\n");
+		str.append(colore);
+		str.append("---------------------------------\n");
+		
+		return str.toString();
 	}
 }
 

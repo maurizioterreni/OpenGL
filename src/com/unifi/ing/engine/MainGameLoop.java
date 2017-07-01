@@ -76,7 +76,7 @@ public class MainGameLoop {
 				z = -2f;
 				
 			TexturedModel cubeTexture = new TexturedModel(cubeRaw, new ModelTexture(loader.loadTexture("cube" + i)));
-			Cube cube = new Cube(cubeTexture, rover.getPosition(), 0, 0, 0, 1,x ,z);
+			Cube cube = new Cube(cubeTexture, rover.getPosition(), 0, 0, 0, 1,x ,z,i);
 			
 			rover.addObserver(cube);
 			cubes.add(cube);
