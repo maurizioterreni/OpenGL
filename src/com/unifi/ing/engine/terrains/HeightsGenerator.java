@@ -11,27 +11,35 @@ public class HeightsGenerator {
 	private int seed;
 	private int xOffset = 0;
 	private int zOffset = 0;
+	private int vertexCount;
 
-	public HeightsGenerator() {
+	public HeightsGenerator(int vertexCount) {
 		this.seed = random.nextInt(1000000000);
+		this.vertexCount = vertexCount - 2;
 	}
 
-	//only works with POSITIVE gridX and gridZ values!
-	public HeightsGenerator(int gridX, int gridZ, int vertexCount, int seed) {
-		this.seed = seed;
-		xOffset = gridX * (vertexCount-1);
-		zOffset = gridZ * (vertexCount-1);
-	}
+	//	//only works with POSITIVE gridX and gridZ values!
+	//	public HeightsGenerator(int gridX, int gridZ, int vertexCount, int seed) {
+	//		this.seed = seed;
+	//		xOffset = gridX * (vertexCount-1);
+	//		zOffset = gridZ * (vertexCount-1);
+	//	}
 
 	public float generateHeight(int x, int z) {
 		float total = 0;
+		
+		if(!(x > 2 && z > 2 && x < vertexCount && z < vertexCount))
+			return total;
+		
 		float d = (float) Math.pow(2, OCTAVES-1);
 		for(int i=0;i<OCTAVES;i++){
 			float freq = (float) (Math.pow(2, i) / d);
 			float amp = (float) Math.pow(ROUGHNESS, i) * AMPLITUDE;
-			total += getInterpolatedNoise((x+xOffset)*freq, (z + zOffset)*freq) * amp;
+			total += getInterpolatedNoise((x + xOffset)*freq, (z + zOffset)*freq) * amp;
 		}
+		
 		return total;
+		
 	}
 
 	private float getInterpolatedNoise(float x, float z){
@@ -39,7 +47,7 @@ public class HeightsGenerator {
 		int intZ = (int) z;
 		float fracX = x - intX;
 		float fracZ = z - intZ;
-		
+
 		//Ottengo la parte frazionata di x e z
 		//calcolo i vertici smussati del quadrato attorno al punto in cui mi trovo 
 
@@ -53,7 +61,7 @@ public class HeightsGenerator {
 		return interpolate(i1, i2, fracZ);
 	}
 
-//	l'idea è quella di interpolare ogni vertice con la funzione coseno in modo tale da ottenere un terreno più fluido
+	//	l'idea è quella di interpolare ogni vertice con la funzione coseno in modo tale da ottenere un terreno più fluido
 	private float interpolate(float a, float b, float blend){
 		double theta = blend * Math.PI;
 		float f = (float)(1f - Math.cos(theta)) * 0.5f;
@@ -69,16 +77,18 @@ public class HeightsGenerator {
 		return corners + sides + center;
 	}
 
-	
+
 	//Il terreno viene generato in modo Random ma ovviamente ci aspettiamo che ogni volta in cui
 	//Ci troviamo nelle coordinate x,z il terreno deve avere sempre la stessa altezza
 	private float getNoise(int x, int z) {
+
 		//I due numeri a moltiplicare sono stati aggiunti in quanto per valori molto vicini di x,z
 		//veniva generato lo stesso output in questo modo riusciamo ad avere valori sempre distinti.
 		random.setSeed(x * 49632 + z * 325176 + seed);
 		return random.nextFloat() * 2f - 1f;
-		//Attraverso l'utilizzo esclusivo di questo metodo abbiamo come output un terreno non uniforme 
-		//quindi abbiamo bisogno di metodi che ci garantiscono la possibilità di interpolare i vari punti generati
-		//in modo da avere un terreno più smussato
-	}
+	
+	//Attraverso l'utilizzo esclusivo di questo metodo abbiamo come output un terreno non uniforme 
+	//quindi abbiamo bisogno di metodi che ci garantiscono la possibilità di interpolare i vari punti generati
+	//in modo da avere un terreno più smussato
+}
 }

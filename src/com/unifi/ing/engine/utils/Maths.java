@@ -30,8 +30,8 @@ public class Maths {
 		Matrix4f.scale(new Vector3f(scale, scale, scale), matrix, matrix);
 		return matrix;
 	}
-	
-	
+
+
 	public static Matrix4f createTransformationMatrix(Vector3f translation, Quaternion rotation, float scale){
 		Matrix4f matrix = new Matrix4f();
 
@@ -68,7 +68,7 @@ public class Maths {
 
 	private static Matrix4f convertQuaternionToMatrix4f(Quaternion q){
 		Matrix4f matrix = new Matrix4f();
-		
+
 		matrix.m00 = 1.0f - 2.0f * ( q.getY() * q.getY() + q.getZ() * q.getZ() );
 		matrix.m01 = 2.0f * (q.getX() * q.getY() + q.getZ() * q.getW());
 		matrix.m02 = 2.0f * (q.getX() * q.getZ() - q.getY() * q.getW());
@@ -112,16 +112,16 @@ public class Maths {
 	}
 
 
-		public static Matrix4f createViewMatrix(Camera camera) {
-			Matrix4f viewMatrix = new Matrix4f();
-			viewMatrix.setIdentity();
-			Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1, 0, 0), viewMatrix, viewMatrix);
-			Matrix4f.rotate((float) Math.toRadians(camera.getYaw()), new Vector3f(0, 1, 0), viewMatrix, viewMatrix);
-			Vector3f cameraPos = camera.getPosition();
-			Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
-			Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
-			return viewMatrix;
-		}
+	public static Matrix4f createViewMatrix(Camera camera) {
+		Matrix4f viewMatrix = new Matrix4f();
+		viewMatrix.setIdentity();
+		Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1, 0, 0), viewMatrix, viewMatrix);
+		Matrix4f.rotate((float) Math.toRadians(camera.getYaw()), new Vector3f(0, 1, 0), viewMatrix, viewMatrix);
+		Vector3f cameraPos = camera.getPosition();
+		Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
+		Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
+		return viewMatrix;
+	}
 
 	public static float barryCentric(Vector3f p1, Vector3f p2, Vector3f p3, Vector2f pos) {
 		float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
@@ -212,7 +212,7 @@ public class Maths {
 	static public float toDegree(float angle){
 		return angle * radiansToDegrees;
 	}
-	
+
 	static public float toDegree(double angle){
 		return (float) angle * radiansToDegrees;
 	}

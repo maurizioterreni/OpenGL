@@ -4,7 +4,7 @@ package com.unifi.ing.engine.entity;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.unifi.ing.engine.model.TexturedModel;
-import com.unifi.ing.engine.terrains.Terrain;
+import com.unifi.ing.engine.terrains.MultipleTerrain;
 import com.unifi.ing.engine.utils.Maths;
 import com.unifi.ing.pattern.observer.Observer;
 
@@ -33,12 +33,12 @@ public class Cube extends Entity implements Observer{
 	}
 
 	@Override
-	public void update(Entity entity, Terrain terrain) {
+	public void update(Entity entity, MultipleTerrain terrain) {
 		Rover rover = ((Rover) entity);
 		Vector3f roverPosition = rover.getPosition();
 		Vector3f position = rotateVector(new Vector3f(roverPosition.x + offsetX, 0, roverPosition.z + offsetZ),
 				rover.getPosition(), Maths.toRadians(rover.getRotY()));
-		position.y = terrain.getHeightOfTerrain(position.x, position.z);
+		position.y = terrain.getTerrain(getPosition()).getHeightOfTerrain(position.x, position.z);
 		this.setPosition(position);
 	}
 

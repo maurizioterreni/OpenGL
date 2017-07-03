@@ -11,7 +11,8 @@ import com.unifi.ing.engine.utils.Maths;
 
 public class Terrain {
 
-	private static final float SIZE = 2800;
+	static final int SIZE = 2800;
+	private static final int VERTEX_COUNT = 64;
 
 	private float x;
 	private float z;
@@ -21,12 +22,14 @@ public class Terrain {
 
 	private float[][] heights;
 	
-	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap){
+	public Terrain(int gridX, int gridZ,int x,int z, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap){
 		this.texturePack = texturePack;
 		this.blendMap = blendMap;
 		this.x = gridX * SIZE;
 		this.z = gridZ * SIZE;
 		this.model = generateTerrain(loader);
+		this.x = x;
+		this.z = z;
 	}
 
 	public float getX() {
@@ -56,9 +59,11 @@ public class Terrain {
 	public float getHeightOfTerrain(float worldX, float worldZ){
 		float terrainX = worldX - this.x;
 		float terrainZ = worldZ - this.z;
+		
 		float gridSquareSize = SIZE / ((float) heights.length -1);
 		int gridX = (int) Math.floor(terrainX / gridSquareSize);
 		int gridZ = (int) Math.floor(terrainZ / gridSquareSize);
+		
 
 		if(gridX >= heights.length - 1 || gridZ >= heights.length - 1 || gridX < 0 || gridZ < 0){
 			return 0;
@@ -80,13 +85,12 @@ public class Terrain {
 
 
 	private RawModel generateTerrain(Loader loader){
+		
+		HeightsGenerator generator = new HeightsGenerator(VERTEX_COUNT);
+		
+		
 
 		
-		HeightsGenerator generator = new HeightsGenerator();
-		
-		
-
-		int VERTEX_COUNT = 128;
 		heights = new float[VERTEX_COUNT][VERTEX_COUNT];
 		int count = VERTEX_COUNT * VERTEX_COUNT;
 		float[] vertices = new float[count * 3];
@@ -94,6 +98,7 @@ public class Terrain {
 		float[] textureCoords = new float[count*2];
 		int[] indices = new int[6*(VERTEX_COUNT-1)*(VERTEX_COUNT-1)];
 		int vertexPointer = 0;
+		
 		for(int i=0;i<VERTEX_COUNT;i++){
 			for(int j=0;j<VERTEX_COUNT;j++){
 				vertices[vertexPointer*3] = (float)j/((float)VERTEX_COUNT - 1) * SIZE;
@@ -111,6 +116,8 @@ public class Terrain {
 				vertexPointer++;
 			}
 		}
+		
+		
 		int pointer = 0;
 		for(int gz=0;gz<VERTEX_COUNT-1;gz++){
 			for(int gx=0;gx<VERTEX_COUNT-1;gx++){

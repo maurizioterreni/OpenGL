@@ -10,10 +10,8 @@ import com.unifi.ing.engine.entity.Rover;
 import com.unifi.ing.engine.model.RawModel;
 import com.unifi.ing.engine.model.TexturedModel;
 import com.unifi.ing.engine.renderer.MasterRenderer;
-import com.unifi.ing.engine.terrains.Terrain;
+import com.unifi.ing.engine.terrains.MultipleTerrain;
 import com.unifi.ing.engine.texture.ModelTexture;
-import com.unifi.ing.engine.texture.TerrainTexture;
-import com.unifi.ing.engine.texture.TerrainTexturePack;
 import com.unifi.ing.engine.utils.DisplayManager;
 
 public class MainGameLoop {
@@ -25,16 +23,7 @@ public class MainGameLoop {
 		Loader loader = new Loader();
 
 
-//		Definisco il terreno e le sue multiTexture
-		TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("martian"));
-		TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
-		TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("martianDirt"));
-		TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
-
-		TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
-		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
-
-		Terrain terrain = new Terrain(0,0,loader,texturePack,blendMap);
+		MultipleTerrain terrain = new MultipleTerrain(loader);
 		
 		
 //		Creo l'oggetto luce e lo posiziono ad una determinata altezza
@@ -50,7 +39,8 @@ public class MainGameLoop {
 		TexturedModel roverTexturedModel = new TexturedModel(roverModel, new ModelTexture(loader.loadTexture("rover")));
 
 //		Setto la posizione del rover in una determinata area
-		Rover rover = new Rover(roverTexturedModel, new Vector3f(600, 30, 550), 0, 0, 0, 1);
+//		Rover rover = new Rover(roverTexturedModel, new Vector3f(600, 30, 550), 0, 0, 0, 1);
+		Rover rover = new Rover(roverTexturedModel, new Vector3f(0, 30, 2800), 0, 0, 0, 1);
 		
 //		Inizializzo la camera fornendogli come parametro l'oggetto da seguire
 		
@@ -72,8 +62,8 @@ public class MainGameLoop {
 			else
 				z = -2f;
 				
-//			TexturedModel cubeTexture = new TexturedModel(cubeRaw, new ModelTexture(loader.loadTexture("cube" + i)));
-			Cube cube = new Cube(null, rover.getPosition(), 0, 0, 0, 1,x ,z,i);
+			TexturedModel cubeTexture = new TexturedModel(null, new ModelTexture(loader.loadTexture("cube" + i)));
+			Cube cube = new Cube(cubeTexture, rover.getPosition(), 0, 0, 0, 1,x ,z,i);
 			
 			rover.addObserver(cube);
 //			cubes.add(cube);
@@ -93,12 +83,8 @@ public class MainGameLoop {
 //				renderer.processEntity(cube);
 //			}
 //			Eseguo il renderer sul terreno
-			renderer.processTerrain(terrain);
-
-
-//			for(Entity entity:entities){
-//				renderer.processEntity(entity);
-//			}
+//			renderer.processTerrain(terrain.getTerrain());
+//			renderer.processTerrain(terrain.getTerrain2());
 			
 //			Eseguo il renderer della luce passandogli la camera 
 //			in modo tale da poter calcolare la luce secondo il 

@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.unifi.ing.engine.model.TexturedModel;
+import com.unifi.ing.engine.terrains.MultipleTerrain;
 import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.utils.DisplayManager;
 import com.unifi.ing.engine.utils.Maths;
@@ -15,7 +16,7 @@ import com.unifi.ing.pattern.observer.Observer;
 
 public class Rover extends Entity implements Observable{
 
-	private static final float RUN_SPEED = 20;
+	private static final float RUN_SPEED = 120;
 	private static final float TURN_SPEED = 160.0f;//160
 	private static final float GRAVITY = -20;
 
@@ -37,7 +38,8 @@ public class Rover extends Entity implements Observable{
 	}
 
 
-	public void move(Terrain terrain){
+	public void move(MultipleTerrain multipleTerrain){
+		Terrain terrain = multipleTerrain.getTerrain(getPosition());
 		checkInputs(terrain);
 		super.increaseRotation(0, currentTurnSpeed * DisplayManager.getFrameTimeSeconds(), 0);
 		float distance = currentSpeed * DisplayManager.getFrameTimeSeconds();
@@ -52,11 +54,11 @@ public class Rover extends Entity implements Observable{
 			super.getPosition().y = terrainHeight;
 		}
 
-		notifyEntity(terrain);
-		calcRotZ();
+
+		notifyEntity(multipleTerrain);
+		
 		super.setRotZ(calcRotZ());
 		super.setRotX(calcRotX());
-		
 		
 	}
 	
@@ -72,6 +74,9 @@ public class Rover extends Entity implements Observable{
 				vB.z - vA.z);
 		Vector3f zero = new Vector3f(vet.x,0,vet.z);
 
+		if(vet.equals(zero))
+			return 0;
+		
 		float a = Maths.mul(vet, zero);
 		float b = Maths.len(vet) * Maths.len(zero);
 
@@ -91,6 +96,9 @@ public class Rover extends Entity implements Observable{
 				vB.y - vA.y,
 				vB.z - vA.z);
 		Vector3f zero = new Vector3f(vet.x,0,vet.z);
+		
+		if(vet.equals(zero))
+			return 0;
 
 		float a = Maths.mul(vet, zero);
 		float b = Maths.len(vet) * Maths.len(zero);
@@ -152,7 +160,7 @@ public class Rover extends Entity implements Observable{
 
 
 	@Override
-	public void notifyEntity(Terrain terrain) {
+	public void notifyEntity(MultipleTerrain terrain) {
 		for (Observer observer : observerEntity) {
 			observer.update(this, terrain);
 		}
