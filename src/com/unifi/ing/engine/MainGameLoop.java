@@ -41,7 +41,7 @@ public class MainGameLoop {
 
 //		Setto la posizione del rover in una determinata area
 //		Rover rover = new Rover(roverTexturedModel, new Vector3f(600, 30, 550), 0, 0, 0, 1);
-		Rover rover = new Rover(roverTexturedModel, new Vector3f(0, 30, 2800), 0, 0, 0, 1);
+		Rover rover = new Rover(roverTexturedModel, new Vector3f(4200, 30, 4200), 0, 0, 0, 1);
 		
 //		Inizializzo la camera fornendogli come parametro l'oggetto da seguire
 		
@@ -75,6 +75,7 @@ public class MainGameLoop {
 //			Chiamo il metodo move del rover fornendogli come parametro il terreno su cui si deve muovere
 //			Il rover si muoverà in base all'input fornito dall'utente gestito all'interno del metodo stesso
 			rover.move(multipleTerrain);
+			multipleTerrain.moveTerrainMap(rover.getPosition());
 //			Ricalcolo la posizione della camera in base alla nuova posizione del Rover
 			camera.move();
 			

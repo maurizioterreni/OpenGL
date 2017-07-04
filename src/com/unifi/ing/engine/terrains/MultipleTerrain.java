@@ -51,30 +51,34 @@ public class MultipleTerrain {
 		
 		if(cubePos == null) return;
 		
+		if(cubePos.equals(center)) return;
+		
+		center = cubePos;
+		
 		if (cubePos == 5){
-			offsetX = terrains.get(2).getX();
-			offsetZ = terrains.get(2).getZ();
-			moveTerrain(terrains.get(0), terrains.get(0).getX(), offsetZ + Terrain.SIZE);
-			moveTerrain(terrains.get(3), terrains.get(3).getX(), offsetZ + Terrain.SIZE);
-			moveTerrain(terrains.get(6), terrains.get(6).getX(), offsetZ + Terrain.SIZE);
+			offsetX = terrains.get(1).getX();
+			offsetZ = terrains.get(1).getZ();
+			moveTerrain(terrains.get(0), terrains.get(0).getX(), offsetZ + Terrain.SIZE + Terrain.SIZE);
+			moveTerrain(terrains.get(3), terrains.get(3).getX(), offsetZ + Terrain.SIZE + Terrain.SIZE);
+			moveTerrain(terrains.get(6), terrains.get(6).getX(), offsetZ + Terrain.SIZE + Terrain.SIZE);
 		}else if (cubePos == 2){
 			offsetX = terrains.get(0).getX() - 2800;
 			offsetZ = terrains.get(0).getZ();
-			moveTerrain(terrains.get(6), offsetX + Terrain.SIZE, terrains.get(6).getZ());
-			moveTerrain(terrains.get(7), offsetX + Terrain.SIZE, terrains.get(7).getZ());
-			moveTerrain(terrains.get(8), offsetX + Terrain.SIZE, terrains.get(8).getZ());
+			moveTerrain(terrains.get(6), offsetX + Terrain.SIZE + Terrain.SIZE, terrains.get(6).getZ());
+			moveTerrain(terrains.get(7), offsetX + Terrain.SIZE + Terrain.SIZE, terrains.get(7).getZ());
+			moveTerrain(terrains.get(8), offsetX + Terrain.SIZE + Terrain.SIZE, terrains.get(8).getZ());
 		}else if (cubePos == 7){
 			offsetX = terrains.get(3).getX();
 			offsetZ = terrains.get(3).getZ();
-			moveTerrain(terrains.get(0), offsetX + Terrain.SIZE, terrains.get(0).getZ());
-			moveTerrain(terrains.get(1), offsetX + Terrain.SIZE, terrains.get(1).getZ());
-			moveTerrain(terrains.get(2), offsetX + Terrain.SIZE, terrains.get(2).getZ());
+			moveTerrain(terrains.get(0), offsetX + Terrain.SIZE + Terrain.SIZE, terrains.get(0).getZ());
+			moveTerrain(terrains.get(1), offsetX + Terrain.SIZE + Terrain.SIZE, terrains.get(1).getZ());
+			moveTerrain(terrains.get(2), offsetX + Terrain.SIZE + Terrain.SIZE, terrains.get(2).getZ());
 		}else if (cubePos == 3){
 			offsetX = terrains.get(2).getX();
 			offsetZ = terrains.get(2).getZ();
-			moveTerrain(terrains.get(2), terrains.get(2).getX(), offsetZ + Terrain.SIZE);
-			moveTerrain(terrains.get(5), terrains.get(5).getX(), offsetZ + Terrain.SIZE);
-			moveTerrain(terrains.get(8), terrains.get(8).getX(), offsetZ + Terrain.SIZE);
+			moveTerrain(terrains.get(2), terrains.get(2).getX(), offsetZ + Terrain.SIZE + Terrain.SIZE);
+			moveTerrain(terrains.get(5), terrains.get(5).getX(), offsetZ + Terrain.SIZE + Terrain.SIZE);
+			moveTerrain(terrains.get(8), terrains.get(8).getX(), offsetZ + Terrain.SIZE + Terrain.SIZE);
 		}
 	}
 	
