@@ -23,6 +23,8 @@ public class MultipleTerrain {
 	private List<Terrain> terrains;  
 
 	private int center = 4;
+	private float offsetX = 0;
+	private float offsetZ = 0;
 
 	public MultipleTerrain(Loader loader){
 		backgroundTexture = new TerrainTexture(loader.loadTexture("martian"));
@@ -43,16 +45,103 @@ public class MultipleTerrain {
 		}
 
 	}
+	
+	public void moveTerrainMap(Vector3f roverPosition){
+		Integer cubePos = getMapValue(roverPosition.x, roverPosition.z);
+		
+		if(cubePos == null) return;
+		
+		if (cubePos == 5){
+			offsetX = terrains.get(2).getX();
+			offsetZ = terrains.get(2).getZ();
+			moveTerrain(terrains.get(0), terrains.get(0).getX(), offsetZ + Terrain.SIZE);
+			moveTerrain(terrains.get(3), terrains.get(3).getX(), offsetZ + Terrain.SIZE);
+			moveTerrain(terrains.get(6), terrains.get(6).getX(), offsetZ + Terrain.SIZE);
+		}else if (cubePos == 2){
+			offsetX = terrains.get(0).getX() - 2800;
+			offsetZ = terrains.get(0).getZ();
+			moveTerrain(terrains.get(6), offsetX + Terrain.SIZE, terrains.get(6).getZ());
+			moveTerrain(terrains.get(7), offsetX + Terrain.SIZE, terrains.get(7).getZ());
+			moveTerrain(terrains.get(8), offsetX + Terrain.SIZE, terrains.get(8).getZ());
+		}else if (cubePos == 7){
+			offsetX = terrains.get(3).getX();
+			offsetZ = terrains.get(3).getZ();
+			moveTerrain(terrains.get(0), offsetX + Terrain.SIZE, terrains.get(0).getZ());
+			moveTerrain(terrains.get(1), offsetX + Terrain.SIZE, terrains.get(1).getZ());
+			moveTerrain(terrains.get(2), offsetX + Terrain.SIZE, terrains.get(2).getZ());
+		}else if (cubePos == 3){
+			offsetX = terrains.get(2).getX();
+			offsetZ = terrains.get(2).getZ();
+			moveTerrain(terrains.get(2), terrains.get(2).getX(), offsetZ + Terrain.SIZE);
+			moveTerrain(terrains.get(5), terrains.get(5).getX(), offsetZ + Terrain.SIZE);
+			moveTerrain(terrains.get(8), terrains.get(8).getX(), offsetZ + Terrain.SIZE);
+		}
+	}
+	
+	private void moveTerrain(Terrain t, float posX, float posZ){
+		t.setX(posX);
+		t.setZ(posZ);
+	}
 
+	private Integer getMapValue(float x, float z){
+		float posX = x - offsetX;
+		float posZ = z - offsetZ;
+		
+		int xCube = floatToInt(posX / Terrain.SIZE);
+		int zCube = floatToInt(posZ / Terrain.SIZE);
+		
+		Integer index = center;
+		
+		if (xCube == 0 && zCube == 0){
+			index = 0;
+		}else if (xCube == 0 && zCube == 1){
+			index = 1;
+		}else if (xCube == 0 && zCube == 2){
+			index = 2;
+		}else if (xCube == 1 && zCube == 0){
+			index = 3;
+		}else if (xCube == 1 && zCube == 1){
+			index = 4;
+		}else if (xCube == 1 && zCube == 2){
+			index = 5;
+		}else if (xCube == 2 && zCube == 0){
+			index = 6;
+		}else if (xCube == 2 && zCube == 1){
+			index = 7;
+		}else if (xCube == 2 && zCube == 2){
+			index = 8;
+		}else{
+			return null;
+		}
+		
+		return index;
+	}
+	
 	public Terrain getTerrain(Vector3f roverPosition){
 
-//		if()
+		Integer cubePos = getMapValue(roverPosition.x, roverPosition.z);
 		
-		return terrains.get(center);
+		if(cubePos == null) return null;
+		
+		return terrains.get(cubePos);
 	}
 
 	public List<Terrain> getTerrains() {
 		return terrains;
+	}
+	
+	private int floatToInt(float value){
+		if(value < 1){
+			return 0;
+		}else if(value >= 1 && value < 2){
+			return 1;
+		}else if(value >= 2 && value < 3){
+			return 2;
+		}else if(value >= 3 && value < 4){
+			return 3;
+		}else{
+			return -1;
+		}
 	}
 
 }

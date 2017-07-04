@@ -11,6 +11,7 @@ import com.unifi.ing.engine.model.RawModel;
 import com.unifi.ing.engine.model.TexturedModel;
 import com.unifi.ing.engine.renderer.MasterRenderer;
 import com.unifi.ing.engine.terrains.MultipleTerrain;
+import com.unifi.ing.engine.terrains.Terrain;
 import com.unifi.ing.engine.texture.ModelTexture;
 import com.unifi.ing.engine.utils.DisplayManager;
 
@@ -23,7 +24,7 @@ public class MainGameLoop {
 		Loader loader = new Loader();
 
 
-		MultipleTerrain terrain = new MultipleTerrain(loader);
+		MultipleTerrain multipleTerrain = new MultipleTerrain(loader);
 		
 		
 //		Creo l'oggetto luce e lo posiziono ad una determinata altezza
@@ -73,7 +74,7 @@ public class MainGameLoop {
 		while(!Display.isCloseRequested()){
 //			Chiamo il metodo move del rover fornendogli come parametro il terreno su cui si deve muovere
 //			Il rover si muoverà in base all'input fornito dall'utente gestito all'interno del metodo stesso
-			rover.move(terrain);
+			rover.move(multipleTerrain);
 //			Ricalcolo la posizione della camera in base alla nuova posizione del Rover
 			camera.move();
 			
@@ -86,6 +87,9 @@ public class MainGameLoop {
 //			renderer.processTerrain(terrain.getTerrain());
 //			renderer.processTerrain(terrain.getTerrain2());
 			
+			for (Terrain terrain : multipleTerrain.getTerrains()) {
+				renderer.processTerrain(terrain);
+			}
 //			Eseguo il renderer della luce passandogli la camera 
 //			in modo tale da poter calcolare la luce secondo il 
 //			nostro punto di vista

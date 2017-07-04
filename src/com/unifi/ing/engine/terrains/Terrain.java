@@ -162,4 +162,12 @@ public class Terrain {
 		return generator.generateHeight(x, z);
 	}
 
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public void setZ(float z) {
+		this.z = z;
+	}
+
 }
