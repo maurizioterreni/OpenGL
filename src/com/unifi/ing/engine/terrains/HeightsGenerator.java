@@ -18,12 +18,6 @@ public class HeightsGenerator {
 		this.vertexCount = vertexCount - 2;
 	}
 
-	//	//only works with POSITIVE gridX and gridZ values!
-	//	public HeightsGenerator(int gridX, int gridZ, int vertexCount, int seed) {
-	//		this.seed = seed;
-	//		xOffset = gridX * (vertexCount-1);
-	//		zOffset = gridZ * (vertexCount-1);
-	//	}
 
 	public float generateHeight(int x, int z) {
 		float total = 0;
