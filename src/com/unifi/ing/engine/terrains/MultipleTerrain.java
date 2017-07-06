@@ -42,6 +42,7 @@ public class MultipleTerrain {
 		}
 		
 		mapTerrainIndex = new MapTerrainIndex();
+		moveTerrain();
 	}
 	
 	public void checkTerrain(Vector3f position) {
@@ -76,7 +77,96 @@ public class MultipleTerrain {
 					currentTerrain(mapTerrainIndex.getCurrentTop()).
 					currentTop(mapTerrainIndex.getCurrentBottom()).
 					build();
-		}
+		}else if(cPos == mapTerrainIndex.getCurrentCTR()){
+			newMap = MapTerrainIndex.builder().
+					currentBottom(mapTerrainIndex.getCurrentRight()).
+					currentCBL(mapTerrainIndex.getCurrentTerrain()).
+					currentCBR(mapTerrainIndex.getCurrentCBR()).
+					currentCTL(mapTerrainIndex.getCurrentLeft()).
+					currentCTR(mapTerrainIndex.getCurrentBottom()).
+					currentLeft(mapTerrainIndex.getCurrentTop()).
+					currentRight(mapTerrainIndex.getCurrentCTL()).
+					currentTerrain(mapTerrainIndex.getCurrentCTR()).
+					currentTop(mapTerrainIndex.getCurrentCBL()).
+					build();
+		}else if(cPos == mapTerrainIndex.getCurrentLeft()){
+			newMap = MapTerrainIndex.builder().
+					currentBottom(mapTerrainIndex.getCurrentCBL()).
+					currentCBL(mapTerrainIndex.getCurrentCBR()).
+					currentCBR(mapTerrainIndex.getCurrentBottom()).
+					currentCTL(mapTerrainIndex.getCurrentCTR()).
+					currentCTR(mapTerrainIndex.getCurrentTop()).
+					currentLeft(mapTerrainIndex.getCurrentRight()).
+					currentRight(mapTerrainIndex.getCurrentTerrain()).
+					currentTerrain(mapTerrainIndex.getCurrentLeft()).
+					currentTop(mapTerrainIndex.getCurrentCTL()).
+					build();
+		}else if(cPos == mapTerrainIndex.getCurrentTerrain()){
+			newMap = MapTerrainIndex.builder().
+					currentBottom(mapTerrainIndex.getCurrentBottom()).
+					currentCBL(mapTerrainIndex.getCurrentCBL()).
+					currentCBR(mapTerrainIndex.getCurrentCBR()).
+					currentCTL(mapTerrainIndex.getCurrentCTL()).
+					currentCTR(mapTerrainIndex.getCurrentCTR()).
+					currentLeft(mapTerrainIndex.getCurrentLeft()).
+					currentRight(mapTerrainIndex.getCurrentRight()).
+					currentTerrain(mapTerrainIndex.getCurrentTerrain()).
+					currentTop(mapTerrainIndex.getCurrentTop()).
+					build();
+		}else if(cPos == mapTerrainIndex.getCurrentRight()){
+			newMap = MapTerrainIndex.builder().
+					currentBottom(mapTerrainIndex.getCurrentCBR()).
+					currentCBL(mapTerrainIndex.getCurrentBottom()).
+					currentCBR(mapTerrainIndex.getCurrentCBL()).
+					currentCTL(mapTerrainIndex.getCurrentTop()).
+					currentCTR(mapTerrainIndex.getCurrentCTL()).
+					currentLeft(mapTerrainIndex.getCurrentTerrain()).
+					currentRight(mapTerrainIndex.getCurrentLeft()).
+					currentTerrain(mapTerrainIndex.getCurrentRight()).
+					currentTop(mapTerrainIndex.getCurrentCTR()).
+					build();
+		}else if(cPos == mapTerrainIndex.getCurrentCBL()){
+			newMap = MapTerrainIndex.builder().
+					currentBottom(mapTerrainIndex.getCurrentRight()).
+					currentCBL(mapTerrainIndex.getCurrentCTR()).
+					currentCBR(mapTerrainIndex.getCurrentCBR()).
+					currentCTL(mapTerrainIndex.getCurrentCTL()).
+					currentCTR(mapTerrainIndex.getCurrentRight()).
+					currentLeft(mapTerrainIndex.getCurrentTop()).
+					currentRight(mapTerrainIndex.getCurrentBottom()).
+					currentTerrain(mapTerrainIndex.getCurrentCBL()).
+					currentTop(mapTerrainIndex.getCurrentLeft()).
+					build();
+		}else if(cPos == mapTerrainIndex.getCurrentBottom()){
+			newMap = MapTerrainIndex.builder().
+					currentBottom(mapTerrainIndex.getCurrentTop()).
+					currentCBL(mapTerrainIndex.getCurrentCTL()).
+					currentCBR(mapTerrainIndex.getCurrentCTR()).
+					currentCTL(mapTerrainIndex.getCurrentLeft()).
+					currentCTR(mapTerrainIndex.getCurrentRight()).
+					currentLeft(mapTerrainIndex.getCurrentCBL()).
+					currentRight(mapTerrainIndex.getCurrentCBR()).
+					currentTerrain(mapTerrainIndex.getCurrentBottom()).
+					currentTop(mapTerrainIndex.getCurrentTerrain()).
+					build();
+		}else if(cPos == mapTerrainIndex.getCurrentCBR()){
+			newMap = MapTerrainIndex.builder().
+					currentBottom(mapTerrainIndex.getCurrentTop()).
+					currentCBL(mapTerrainIndex.getCurrentLeft()).
+					currentCBR(mapTerrainIndex.getCurrentCBL()).
+					currentCTL(mapTerrainIndex.getCurrentTerrain()).
+					currentCTR(mapTerrainIndex.getCurrentCTR()).
+					currentLeft(mapTerrainIndex.getCurrentBottom()).
+					currentRight(mapTerrainIndex.getCurrentCTL()).
+					currentTerrain(mapTerrainIndex.getCurrentCBR()).
+					currentTop(mapTerrainIndex.getCurrentRight()).
+					build();
+		}else newMap = null;
+		
+		mapTerrainIndex = newMap;
+		
+		
+		moveTerrain();
 	}
 	
 	private void moveTerrain(){
@@ -100,6 +190,15 @@ public class MultipleTerrain {
 		}
 		
 		return 0;
+	}
+	
+	public Terrain getTerrain(Vector3f position){
+		int index = getCurrentTerrain(position.x, position.z);
+		return terrains.get(index);
+	}
+	
+	public List<Terrain> getTerrains() {
+		return terrains;
 	}
 
 }

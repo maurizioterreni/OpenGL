@@ -16,7 +16,7 @@ import com.unifi.ing.pattern.observer.Observer;
 
 public class Rover extends Entity implements Observable{
 
-	private static final float RUN_SPEED = 120;
+	private static final float RUN_SPEED = 40;
 	private static final float TURN_SPEED = 160.0f;//160
 	private static final float GRAVITY = -20;
 
