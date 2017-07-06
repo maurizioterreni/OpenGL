@@ -169,5 +169,29 @@ public class Terrain {
 	public void setZ(float z) {
 		this.z = z;
 	}
+	
+	public boolean isInside(Vector3f position){
+		return isInside(position.x, position.z);
+	}
 
+	public boolean isInside(float x, float z){
+		
+		float xMax = this.x + SIZE;
+		float xMin = this.x;
+		
+		float zMax = this.z + SIZE;
+		float zMin = this.z;
+		
+		if((x > xMin && x < xMax) &&
+				(z > zMin && z < zMax)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void setPosition(float x,float z){
+		this.x = x;
+		this.z = z;
+	}
 }
